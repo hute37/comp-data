@@ -24,14 +24,14 @@ Dx = spdiags( [ onex -2*onex onex ],[ -1 0 1 ],nx,nx );
 Dy = spdiags( [ oney -2*oney oney ],[ -1 0 1 ],ny,ny );
 Ix = eye(nx); Iy = eye(ny);
 L = kron(Iy,Dx)+kron(Dy,Ix);
-tspan=[ 0 0.002 0.004 0.006 ];
+tspan=[ 0 0.006 0.008 0.01];
 An2 = reshape(An, nx*ny,1);
-D=1;
-[ t, usol ] = ode45( 'zoo_rhs', tspan, An2, [], L, D);
+D=100;
+[ t, usol ] = ode45( @zoo_rhs, tspan, An2, [], L, D);
 
 for j=1:length(tspan)
   Atemp = uint8(reshape(usol(j,:),nx,ny));
-  subplot(2,2,j), imshow(ATemp);
+  subplot(2,2,j), imshow(Atemp);
 end
 
 
